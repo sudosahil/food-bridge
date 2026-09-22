@@ -139,7 +139,7 @@ function buildNgoFeedCard(item) {
     const alreadyClaimed = item.claims.some(function (c) { return c.ngoUsername === currentUser.username; });
 
     const col = document.createElement('div');
-    col.className = 'col-md-4 mb-4';
+    col.className = 'col-xl-3 col-lg-4 col-md-6 mb-3';
     col.id = 'listing-' + item.id;
 
     let actionHtml;
@@ -222,7 +222,7 @@ function buildHistoryCard(entry, reviews) {
     });
 
     const col = document.createElement('div');
-    col.className = 'col-md-4 mb-4';
+    col.className = 'col-xl-3 col-lg-4 col-md-6 mb-3';
 
     const reviewHtml = existingReview
         ? '<div class="mt-2">' + renderStarsHtml(existingReview.rating) + '<p class="listing-meta mb-0">"' + escapeHtml(existingReview.comment) + '"</p></div>'

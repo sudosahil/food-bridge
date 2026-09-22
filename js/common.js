@@ -12,12 +12,12 @@
  */
 
 // ---------- LOCALSTORAGE KEYS ----------
-// Bumped to "v3" so everyone gets the expanded seed listings below
-// instead of whatever was cached from an earlier version.
-const USERS_KEY = 'sfb_v3_users';
-const LISTINGS_KEY = 'sfb_v3_listings';
-const REVIEWS_KEY = 'sfb_v3_reviews';
-const SESSION_KEY = 'sfb_v3_currentUser';
+// Bumped to "v4" so everyone gets the expanded seed accounts/listings
+// below instead of whatever was cached from an earlier version.
+const USERS_KEY = 'sfb_v4_users';
+const LISTINGS_KEY = 'sfb_v4_listings';
+const REVIEWS_KEY = 'sfb_v4_reviews';
+const SESSION_KEY = 'sfb_v4_currentUser';
 
 // ---------- PICKUP ZONES (used for location dropdowns + filtering) ----------
 // A real app would geocode a street address. For this lab project donors
@@ -81,6 +81,14 @@ function seedData() {
             {
                 username: 'ngo', password: '1234', role: 'ngo', name: 'City Shelter',
                 zoneId: 'downtown', address: '88 Community Lane', phone: '+1 555-0199'
+            },
+            {
+                username: 'foodrescue', password: '1234', role: 'ngo', name: 'Food Rescue Network',
+                zoneId: 'uptown', address: '45 Relief Avenue', phone: '+1 555-0212'
+            },
+            {
+                username: 'hopekitchen', password: '1234', role: 'ngo', name: 'Hope Community Kitchen',
+                zoneId: 'southgate', address: '9 Charity Row', phone: '+1 555-0233'
             }
         ];
         writeJson(USERS_KEY, defaultUsers);
@@ -257,12 +265,86 @@ function seedData() {
                 status: 'available',
                 claims: [],
                 postedAt: new Date(now - 30 * 60 * 1000).toISOString()
+            },
+            {
+                id: 'seed-11',
+                foodName: 'Cinnamon Rolls',
+                totalQuantity: 8,
+                unit: 'boxes',
+                claimedQuantity: 8,
+                zoneId: 'downtown',
+                addressDetail: 'Front counter, ask for the donation tray.',
+                donorUsername: 'donor',
+                donorName: 'Downtown Bakery',
+                preparedAt: new Date(now - 12 * hour).toISOString(),
+                bestBeforeAt: new Date(now - 9 * hour).toISOString(),
+                status: 'claimed',
+                claims: [
+                    { ngoUsername: 'foodrescue', ngoName: 'Food Rescue Network', quantity: 8, claimedAt: new Date(now - 8 * hour).toISOString() }
+                ],
+                postedAt: new Date(now - 12 * hour).toISOString()
+            },
+            {
+                id: 'seed-12',
+                foodName: 'Grilled Veggie Wraps',
+                totalQuantity: 15,
+                unit: 'pieces',
+                claimedQuantity: 15,
+                zoneId: 'westside',
+                addressDetail: 'Side entrance, packed in a cooler bag.',
+                donorUsername: 'greenplate',
+                donorName: 'Green Plate Cafe',
+                preparedAt: new Date(now - 9 * hour).toISOString(),
+                bestBeforeAt: new Date(now - 6 * hour).toISOString(),
+                status: 'claimed',
+                claims: [
+                    { ngoUsername: 'hopekitchen', ngoName: 'Hope Community Kitchen', quantity: 15, claimedAt: new Date(now - 5 * hour).toISOString() }
+                ],
+                postedAt: new Date(now - 9 * hour).toISOString()
+            },
+            {
+                id: 'seed-13',
+                foodName: 'Lentil Soup Batch',
+                totalQuantity: 12,
+                unit: 'liters',
+                claimedQuantity: 12,
+                zoneId: 'eastend',
+                addressDetail: 'Kitchen back door, sealed containers ready.',
+                donorUsername: 'campuskitchen',
+                donorName: 'Campus Kitchen Co-op',
+                preparedAt: new Date(now - 7 * hour).toISOString(),
+                bestBeforeAt: new Date(now - 4 * hour).toISOString(),
+                status: 'claimed',
+                claims: [
+                    { ngoUsername: 'foodrescue', ngoName: 'Food Rescue Network', quantity: 12, claimedAt: new Date(now - 3 * hour).toISOString() }
+                ],
+                postedAt: new Date(now - 7 * hour).toISOString()
+            },
+            {
+                id: 'seed-14',
+                foodName: 'Granola Bar Packs',
+                totalQuantity: 10,
+                unit: 'boxes',
+                claimedQuantity: 10,
+                zoneId: 'downtown',
+                addressDetail: 'Reception desk, boxed and labeled.',
+                donorUsername: 'donor',
+                donorName: 'Downtown Bakery',
+                preparedAt: new Date(now - 6 * hour).toISOString(),
+                bestBeforeAt: new Date(now - 3 * hour).toISOString(),
+                status: 'claimed',
+                claims: [
+                    { ngoUsername: 'hopekitchen', ngoName: 'Hope Community Kitchen', quantity: 10, claimedAt: new Date(now - 2 * hour).toISOString() }
+                ],
+                postedAt: new Date(now - 6 * hour).toISOString()
             }
         ];
         writeJson(LISTINGS_KEY, defaultListings);
     }
 
     if (!localStorage.getItem(REVIEWS_KEY)) {
+        const now = Date.now();
+        const hour = 60 * 60 * 1000;
         const defaultReviews = [
             {
                 id: 'review-1',
@@ -272,7 +354,67 @@ function seedData() {
                 listingId: 'seed-2',
                 rating: 5,
                 comment: 'Excellent quality and always ready right on time.',
-                createdAt: new Date(Date.now() - 60 * 60 * 1000).toISOString()
+                createdAt: new Date(now - 1 * hour).toISOString()
+            },
+            {
+                id: 'review-2',
+                donorUsername: 'donor',
+                ngoUsername: 'foodrescue',
+                ngoName: 'Food Rescue Network',
+                listingId: 'seed-11',
+                rating: 4,
+                comment: 'Good variety, pickup window could be a bit longer.',
+                createdAt: new Date(now - 7 * hour).toISOString()
+            },
+            {
+                id: 'review-3',
+                donorUsername: 'donor',
+                ngoUsername: 'hopekitchen',
+                ngoName: 'Hope Community Kitchen',
+                listingId: 'seed-14',
+                rating: 5,
+                comment: 'Always packaged well and easy to collect.',
+                createdAt: new Date(now - 1.5 * hour).toISOString()
+            },
+            {
+                id: 'review-4',
+                donorUsername: 'greenplate',
+                ngoUsername: 'ngo',
+                ngoName: 'City Shelter',
+                listingId: 'seed-3',
+                rating: 4,
+                comment: 'Tasty and generous portions, would love a bit more notice next time.',
+                createdAt: new Date(now - 24 * hour).toISOString()
+            },
+            {
+                id: 'review-5',
+                donorUsername: 'greenplate',
+                ngoUsername: 'hopekitchen',
+                ngoName: 'Hope Community Kitchen',
+                listingId: 'seed-12',
+                rating: 5,
+                comment: 'Fantastic partner, the food is always fresh.',
+                createdAt: new Date(now - 4 * hour).toISOString()
+            },
+            {
+                id: 'review-6',
+                donorUsername: 'campuskitchen',
+                ngoUsername: 'ngo',
+                ngoName: 'City Shelter',
+                listingId: 'seed-6',
+                rating: 5,
+                comment: 'Reliable donations every week, thank you.',
+                createdAt: new Date(now - 0.5 * hour).toISOString()
+            },
+            {
+                id: 'review-7',
+                donorUsername: 'campuskitchen',
+                ngoUsername: 'foodrescue',
+                ngoName: 'Food Rescue Network',
+                listingId: 'seed-13',
+                rating: 4,
+                comment: 'Great quantity, sometimes ready a little later than posted.',
+                createdAt: new Date(now - 2.5 * hour).toISOString()
             }
         ];
         writeJson(REVIEWS_KEY, defaultReviews);

@@ -135,7 +135,7 @@ function buildDonorActiveCard(item) {
     const claimedPercent = Math.min(100, Math.round((item.claimedQuantity / item.totalQuantity) * 100));
 
     const col = document.createElement('div');
-    col.className = 'col-md-4 mb-4';
+    col.className = 'col-xl-3 col-lg-4 col-md-6 mb-3';
     col.innerHTML =
         '<div class="card listing-card h-100">' +
             '<div>' + renderBadgesHtml(item) + '</div>' +
@@ -156,7 +156,7 @@ function buildDonorHistoryCard(item) {
     }).join('');
 
     const col = document.createElement('div');
-    col.className = 'col-md-4 mb-4';
+    col.className = 'col-xl-3 col-lg-4 col-md-6 mb-3';
     col.innerHTML =
         '<div class="card listing-card listing-card-muted h-100">' +
             '<span class="badge status-badge status-claimed">Fully Claimed</span>' +
