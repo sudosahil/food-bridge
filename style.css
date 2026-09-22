@@ -1,0 +1,683 @@
+/* =========================================================
+   Surplus Food Bridge - style.css
+   Palette: off-white background, dark brown, black, white
+   ========================================================= */
+
+:root {
+    --color-bg: #f7f5f2;
+    --color-dark-brown: #2b1d14;
+    --color-accent-brown: #5c4033;
+    --color-black: #1a1a1a;
+    --color-white: #ffffff;
+    --color-border: #e4ded6;
+    --color-muted: #8a8a8a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-black);
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar-custom {
+    background-color: var(--color-dark-brown);
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-custom .navbar-brand {
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 0.3px;
+}
+
+.navbar-welcome {
+    color: var(--color-white);
+    opacity: 0.9;
+    font-weight: 500;
+    margin-right: 1.25rem;
+}
+
+.nav-extra-link a {
+    color: var(--color-white);
+    opacity: 0.85;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-right: 1.25rem;
+}
+
+.nav-extra-link a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.btn-logout {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+}
+
+/* ---------- HERO (index.html) ---------- */
+.hero-section {
+    text-align: center;
+    padding: 3rem 1rem 1rem;
+}
+
+.hero-title {
+    font-weight: 700;
+    color: var(--color-dark-brown);
+    font-size: 2.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.hero-subtitle {
+    color: var(--color-accent-brown);
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.feature-strip {
+    max-width: 700px;
+    margin: 2.5rem auto 0;
+}
+
+.feature-box {
+    background-color: var(--color-white);
+    border-radius: 10px;
+    padding: 1.5rem;
+    height: 100%;
+    border: 1px solid var(--color-border);
+}
+
+.feature-box h6 {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.feature-box p {
+    color: #4a4a4a;
+    font-size: 0.92rem;
+    margin-bottom: 0;
+}
+
+/* ---------- AUTH CARD ---------- */
+.auth-card {
+    background-color: var(--color-white);
+    border-radius: 14px;
+    padding: 2.75rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border-top: 4px solid var(--color-accent-brown);
+}
+
+.auth-title {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.demo-accounts {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.75rem;
+    color: #4a4a4a;
+    line-height: 1.6;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--color-dark-brown);
+    margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select {
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #d8d1c7;
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-accent-brown);
+    box-shadow: 0 0 0 0.2rem rgba(92, 64, 51, 0.15);
+}
+
+.form-hint {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-top: 0.3rem;
+}
+
+.role-extra-fields {
+    background-color: var(--color-bg);
+    border: 1px dashed var(--color-border);
+    border-radius: 10px;
+    padding: 1.25rem 1.25rem 0.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.auth-switch {
+    text-align: center;
+    color: #6b6b6b;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+}
+
+.auth-switch a {
+    color: var(--color-accent-brown);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-primary-dark {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary-dark:hover {
+    background-color: #333333;
+    color: var(--color-white);
+}
+
+.btn-primary-brown {
+    background-color: var(--color-accent-brown);
+    color: var(--color-white);
+    border: none;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary-brown:hover {
+    background-color: #463026;
+    color: var(--color-white);
+}
+
+.btn-claim {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.btn-claim:hover {
+    background-color: #333333;
+    color: var(--color-white);
+}
+
+.btn-claim:disabled {
+    background-color: #c9c2b8;
+    cursor: not-allowed;
+}
+
+.btn-outline-brown {
+    background-color: transparent;
+    color: var(--color-accent-brown);
+    border: 1px solid var(--color-accent-brown);
+    font-weight: 600;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+}
+
+.btn-outline-brown:hover {
+    background-color: var(--color-accent-brown);
+    color: var(--color-white);
+}
+
+/* ---------- DASHBOARD HEADER ---------- */
+.dashboard-header {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    padding: 2rem 2.25rem;
+    margin: 2rem 0 1.75rem;
+    border-left: 5px solid var(--color-accent-brown);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard-header h2 {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.dashboard-header p {
+    color: #6b6b6b;
+    margin-bottom: 0;
+}
+
+/* ---------- STATS BAR ---------- */
+.stats-bar {
+    margin-bottom: 2.5rem;
+}
+
+.stat-tile {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    height: 100%;
+}
+
+.stat-tile .stat-value {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    font-size: 1.9rem;
+    line-height: 1.1;
+}
+
+.stat-tile .stat-label {
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-top: 0.35rem;
+}
+
+/* ---------- FORM CARD (donor post form) ---------- */
+.post-form-card {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    border: 1px solid var(--color-border);
+}
+
+.post-form-card h5 {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+/* ---------- SECTION HEADINGS ---------- */
+.section-title {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* ---------- FILTER BAR (ngo feed) ---------- */
+.filter-bar {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.view-toggle .btn {
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.1rem;
+}
+
+/* ---------- SUPPLIER SEARCH RESULTS ---------- */
+#supplierSearchResults:not(:empty) {
+    margin-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.5rem;
+}
+
+.supplier-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+}
+
+.supplier-result-row:last-child {
+    border-bottom: none;
+}
+
+.supplier-result-row:hover .supplier-result-name {
+    text-decoration: underline;
+}
+
+.supplier-result-name {
+    font-weight: 700;
+    color: var(--color-dark-brown);
+}
+
+/* ---------- LISTING CARDS ---------- */
+.listing-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s ease;
+}
+
+.listing-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.listing-card-clickable {
+    cursor: pointer;
+}
+
+.listing-card-clickable:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-accent-brown);
+}
+
+.listing-card-muted {
+    background-color: #fbfaf8;
+}
+
+.listing-title {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    margin: 0.65rem 0 0.5rem;
+}
+
+.listing-detail {
+    color: var(--color-black);
+    margin-bottom: 0.4rem;
+    font-size: 0.93rem;
+}
+
+.listing-meta {
+    color: var(--color-muted);
+    font-size: 0.8rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0;
+}
+
+.listing-donor-link {
+    color: var(--color-accent-brown);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.listing-donor-link:hover {
+    text-decoration: underline;
+}
+
+.claimed-by {
+    color: var(--color-accent-brown);
+}
+
+/* ---------- BADGES ---------- */
+.status-badge {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    margin-right: 0.35rem;
+    margin-bottom: 0.35rem;
+}
+
+.status-available {
+    background-color: #f0ece6;
+    color: var(--color-accent-brown);
+    border: 1px solid var(--color-accent-brown);
+}
+
+.status-claimed {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.status-received {
+    background-color: var(--color-accent-brown);
+    color: var(--color-white);
+}
+
+.freshness-fresh {
+    background-color: #eef3ea;
+    color: #3d5c34;
+    border: 1px solid #3d5c34;
+}
+
+.freshness-soon {
+    background-color: #f7ede1;
+    color: #8a5a1f;
+    border: 1px solid #8a5a1f;
+}
+
+.freshness-expired {
+    background-color: #f3e6e6;
+    color: #8a2e2e;
+    border: 1px solid #8a2e2e;
+}
+
+
+/* ---------- PROGRESS / INVENTORY ---------- */
+.inventory-progress {
+    height: 8px;
+    border-radius: 6px;
+    background-color: var(--color-border);
+    overflow: hidden;
+    margin: 0.5rem 0 0.6rem;
+}
+
+.inventory-progress-fill {
+    height: 100%;
+    background-color: var(--color-accent-brown);
+}
+
+.countdown-text {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-dark-brown);
+}
+
+/* ---------- CLAIM FORM ---------- */
+.claim-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+}
+
+.claim-form input {
+    max-width: 90px;
+}
+
+/* ---------- STAR RATING ---------- */
+.star-rating .star {
+    font-size: 1rem;
+    margin-right: 1px;
+}
+
+.star-filled {
+    color: var(--color-dark-brown);
+}
+
+.star-empty {
+    color: #d8d1c7;
+}
+
+.star-picker .star {
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #d8d1c7;
+}
+
+.star-picker .star.star-active {
+    color: var(--color-dark-brown);
+}
+
+/* ---------- EMPTY STATES ---------- */
+.empty-state {
+    color: var(--color-muted);
+    font-size: 1.05rem;
+    padding: 1rem 0;
+}
+
+/* ---------- MAP ---------- */
+.map-container {
+    width: 100%;
+    height: 480px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+}
+
+.map-container-small {
+    height: 220px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 10px;
+}
+
+.map-popup h6 {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.map-popup .claim-form {
+    margin-top: 0.6rem;
+}
+
+/* ---------- SUPPLIER PROFILE ---------- */
+.profile-header {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    padding: 2rem 2.25rem;
+    margin: 2rem 0 1.75rem;
+    border-left: 5px solid var(--color-accent-brown);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.profile-header h2 {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.profile-header .profile-meta {
+    color: var(--color-muted);
+    font-size: 0.92rem;
+    margin-bottom: 0.2rem;
+}
+
+.review-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.review-card .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.review-card .review-author {
+    font-weight: 700;
+    color: var(--color-dark-brown);
+}
+
+.review-card .review-date {
+    color: var(--color-muted);
+    font-size: 0.8rem;
+}
+
+.review-card p {
+    margin-bottom: 0;
+    color: #4a4a4a;
+}
+
+/* ---------- NOT-FOUND / EMPTY GATE (e.g. supplier.html) ---------- */
+.pending-gate {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 560px;
+}
+
+.pending-gate h3 {
+    color: var(--color-dark-brown);
+    font-weight: 700;
+}
+
+.pending-gate p {
+    color: #6b6b6b;
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+    text-align: center;
+    color: #9a9a9a;
+    font-size: 0.85rem;
+    padding: 2.5rem 0 1.5rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 576px) {
+    .auth-card {
+        padding: 1.75rem;
+    }
+
+    .dashboard-header,
+    .profile-header {
+        padding: 1.5rem;
+    }
+
+    .claim-form {
+        flex-wrap: wrap;
+    }
+}
