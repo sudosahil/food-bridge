@@ -19,36 +19,22 @@ const LISTINGS_KEY = 'sfb_v3_listings';
 const REVIEWS_KEY = 'sfb_v3_reviews';
 const SESSION_KEY = 'sfb_v3_currentUser';
 
-// ---------- PICKUP ZONES (used for the map + location dropdowns) ----------
+// ---------- PICKUP ZONES (used for location dropdowns + filtering) ----------
 // A real app would geocode a street address. For this lab project donors
-// just pick the nearest zone, and each zone has a fixed lat/lng so we can
-// plot it on the map with Leaflet.
+// just pick the nearest zone from this fixed list instead.
 const ZONES = [
-    { id: 'downtown', name: 'Downtown', lat: 19.0760, lng: 72.8777 },
-    { id: 'uptown', name: 'Uptown', lat: 19.0896, lng: 72.8656 },
-    { id: 'westside', name: 'West Side', lat: 19.0654, lng: 72.8452 },
-    { id: 'eastend', name: 'East End', lat: 19.0810, lng: 72.9020 },
-    { id: 'northpark', name: 'North Park', lat: 19.1020, lng: 72.8790 },
-    { id: 'southgate', name: 'South Gate', lat: 19.0490, lng: 72.8700 }
+    { id: 'downtown', name: 'Downtown' },
+    { id: 'uptown', name: 'Uptown' },
+    { id: 'westside', name: 'West Side' },
+    { id: 'eastend', name: 'East End' },
+    { id: 'northpark', name: 'North Park' },
+    { id: 'southgate', name: 'South Gate' }
 ];
 
 const UNITS = ['servings', 'kg', 'boxes', 'trays', 'liters', 'pieces'];
 
 function getZoneById(zoneId) {
     return ZONES.find(function (z) { return z.id === zoneId; }) || null;
-}
-
-// Leaflet's default marker icon looks up its image files relative to
-// wherever it thinks its own script tag is, which can fail to resolve
-// when loaded from a CDN and leaves markers invisible. Point it at the
-// same CDN build explicitly. Guarded because pages without a map (like
-// donor.html) never load Leaflet at all.
-if (typeof L !== 'undefined') {
-    L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png'
-    });
 }
 
 // ---------- LOW LEVEL STORAGE HELPERS ----------

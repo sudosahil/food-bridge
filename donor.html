@@ -29,6 +29,12 @@
             <p>Post surplus food and keep track of what your organization has donated.</p>
         </div>
 
+        <nav class="quick-nav">
+            <a href="#postSection">Post Food</a>
+            <a href="#activeSection">Active Donations</a>
+            <a href="#historySection">Donation History</a>
+        </nav>
+
         <div class="row stats-bar g-3">
             <div class="col-6 col-md-3">
                 <div class="stat-tile">
@@ -56,7 +62,7 @@
             </div>
         </div>
 
-        <div class="post-form-card">
+        <div id="postSection" class="post-form-card">
             <h5>Post a New Food Listing</h5>
             <form id="foodForm">
                 <div class="row g-3">
@@ -98,11 +104,15 @@
             </form>
         </div>
 
-        <h4 class="section-title">Active Donations</h4>
-        <div class="row mb-5" id="donorActiveGrid"></div>
+        <div id="activeSection">
+            <h4 class="section-title">Active Donations</h4>
+            <div class="row mb-5" id="donorActiveGrid"></div>
+        </div>
 
-        <h4 class="section-title">Donation History</h4>
-        <div class="row" id="donorHistoryGrid"></div>
+        <div id="historySection">
+            <h4 class="section-title">Donation History</h4>
+            <div class="row" id="donorHistoryGrid"></div>
+        </div>
 
     </div>
 

@@ -29,7 +29,6 @@ async function initSupplierPage() {
 
     document.getElementById('profileContent').classList.remove('d-none');
     renderProfileHeader(donorUser, reviews);
-    renderProfileMap(donorUser);
     renderProfileStats(listings, donorUser.username);
     renderProfileListings(listings, donorUser.username, user);
     renderProfileReviews(reviews, donorUser.username);
@@ -52,19 +51,6 @@ function renderProfileHeader(donorUser, reviews) {
     ratingBox.innerHTML = rating.count > 0
         ? renderStarsHtml(rating.avg) + ' <span class="listing-meta">(' + rating.avg.toFixed(1) + ' from ' + rating.count + ' review' + (rating.count === 1 ? '' : 's') + ')</span>'
         : '<span class="listing-meta">No reviews yet</span>';
-}
-
-function renderProfileMap(donorUser) {
-    const zone = getZoneById(donorUser.zoneId);
-    if (!zone) return;
-    const map = L.map('mapWrapper', { zoomControl: false, dragging: false, scrollWheelZoom: false }).setView([zone.lat, zone.lng], 14);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        subdomains: 'abcd',
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-    }).addTo(map);
-    L.marker([zone.lat, zone.lng]).addTo(map).bindPopup(escapeHtml(donorUser.name));
-    setTimeout(function () { map.invalidateSize(); }, 50);
 }
 
 function renderProfileStats(listings, donorUsername) {

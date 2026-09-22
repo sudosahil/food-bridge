@@ -1,13 +1,10 @@
 /*
  * Surplus Food Bridge - js/ngo.js
- * Logic for ngo.html: filtered feed (list + map), partial claiming,
- * claim history, and the review modal.
+ * Logic for ngo.html: filtered feed, partial claiming, claim history,
+ * and the review modal.
  */
 
 let currentUser = null;
-let currentView = 'list';
-let ngoMap = null;
-let mapMarkers = [];
 let reviewModalInstance = null;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -23,7 +20,6 @@ async function initNgoPage() {
     currentUser = user;
 
     populateSelect('filterZone', ZONES, function (z) { return z.id; }, function (z) { return z.name; });
-    wireViewToggle();
     wireStarPicker();
     wireFilters();
     wireSupplierSearch();
@@ -93,33 +89,6 @@ function renderSupplierSearchResults(query, donors, reviews) {
     }).join('');
 }
 
-function wireViewToggle() {
-    const listBtn = document.getElementById('listViewBtn');
-    const mapBtn = document.getElementById('mapViewBtn');
-    const grid = document.getElementById('ngoFeedGrid');
-    const mapDiv = document.getElementById('ngoFeedMap');
-
-    listBtn.addEventListener('click', function () {
-        currentView = 'list';
-        listBtn.className = 'btn btn-primary-dark';
-        mapBtn.className = 'btn btn-outline-brown';
-        grid.classList.remove('d-none');
-        mapDiv.classList.add('d-none');
-    });
-
-    mapBtn.addEventListener('click', async function () {
-        currentView = 'map';
-        mapBtn.className = 'btn btn-primary-dark';
-        listBtn.className = 'btn btn-outline-brown';
-        grid.classList.add('d-none');
-        mapDiv.classList.remove('d-none');
-        ensureMapInitialized();
-        const listings = await fetchListings();
-        updateMapMarkers(applyFilters(listings));
-        setTimeout(function () { ngoMap.invalidateSize(); }, 50);
-    });
-}
-
 // ---------- MAIN RENDER PIPELINE ----------
 async function renderAll() {
     const [listings, reviews] = await Promise.all([fetchListings(), fetchReviews()]);
@@ -129,10 +98,7 @@ async function renderAll() {
     document.getElementById('statMyClaims').textContent = stats.myClaimCount;
     document.getElementById('statMyQuantity').textContent = stats.myQuantity;
 
-    const filtered = applyFilters(listings);
-    renderFeedGrid(filtered);
-    if (currentView === 'map') updateMapMarkers(filtered);
-
+    renderFeedGrid(applyFilters(listings));
     renderHistory(listings, reviews);
 }
 
@@ -211,78 +177,6 @@ function buildNgoFeedCard(item) {
 
     makeCardClickable(col, item, { onClaim: claimListing, currentUsername: currentUser.username });
     return col;
-}
-
-// ---------- MAP VIEW ----------
-function ensureMapInitialized() {
-    if (ngoMap) return;
-    ngoMap = L.map('ngoFeedMap').setView([19.076, 72.8777], 12);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        subdomains: 'abcd',
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-    }).addTo(ngoMap);
-}
-
-// Nudges a zone's shared coordinate by a small, repeatable amount per
-// listing so pins in the same zone do not stack exactly on top of each other.
-function jitterCoord(base, seedStr, magnitude) {
-    let hash = 0;
-    for (let i = 0; i < seedStr.length; i++) {
-        hash = (hash * 31 + seedStr.charCodeAt(i)) % 10000;
-    }
-    return base + ((hash / 10000) - 0.5) * magnitude;
-}
-
-function updateMapMarkers(listings) {
-    ensureMapInitialized();
-    mapMarkers.forEach(function (m) { ngoMap.removeLayer(m); });
-    mapMarkers = [];
-
-    listings.forEach(function (item) {
-        const zone = getZoneById(item.zoneId);
-        if (!zone) return;
-
-        const lat = jitterCoord(zone.lat, item.id + 'lat', 0.01);
-        const lng = jitterCoord(zone.lng, item.id + 'lng', 0.01);
-        const freshness = getFreshnessInfo(item);
-        const remaining = remainingQuantity(item);
-        const alreadyClaimed = item.claims.some(function (c) { return c.ngoUsername === currentUser.username; });
-        const popupId = 'popup-claim-' + item.id;
-
-        const actionHtml = (alreadyClaimed || freshness.label === 'Expired')
-            ? '<p class="listing-meta mb-0">' + (alreadyClaimed ? 'Already claimed by you.' : 'Pickup window closed.') + '</p>'
-            : '<div class="claim-form" id="' + popupId + '">' +
-                  '<input type="number" min="0.1" max="' + remaining + '" step="any" value="' + remaining + '" class="form-control form-control-sm">' +
-                  '<button type="button" class="btn btn-claim btn-sm">Claim</button>' +
-              '</div>';
-
-        const marker = L.marker([lat, lng]).addTo(ngoMap);
-        marker.bindPopup(
-            '<div class="map-popup">' +
-                '<h6>' + escapeHtml(item.foodName) + '</h6>' +
-                '<p class="mb-1">' + escapeHtml(item.donorName) + ' &middot; ' + escapeHtml(zone.name) + '</p>' +
-                renderBadgesHtml(item) +
-                '<p class="mb-1 mt-2">Remaining: ' + remaining + ' ' + escapeHtml(item.unit) + '</p>' +
-                actionHtml +
-            '</div>'
-        );
-
-        marker.on('popupopen', function () {
-            const container = document.getElementById(popupId);
-            if (!container) return;
-            container.querySelector('button').addEventListener('click', function () {
-                const qty = parseFloat(container.querySelector('input').value);
-                claimListing(item.id, qty);
-            });
-        });
-
-        mapMarkers.push(marker);
-    });
-
-    if (mapMarkers.length > 0) {
-        ngoMap.fitBounds(L.featureGroup(mapMarkers).getBounds().pad(0.3));
-    }
 }
 
 // ---------- CLAIMING (with automatic inventory update) ----------
