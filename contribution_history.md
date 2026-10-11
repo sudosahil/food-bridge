@@ -4,3 +4,4 @@ Commit 3: add basic donor form and NGO dashboard views with javascript by navyam
 Commit 4: add sample dummy accounts and login validation placeholders by sudosahil on 2026-09-19T10:15:00
 Commit 5: initialize mongodb connection and data schemas for users and listings by amartyaT21 on 2026-10-01T09:00:00
 Commit 6: add admin user dashboard layout and site stats display by navyamathur89 on 2026-10-06T15:20:00
+Commit 7: add ngo registration numbers and admin account verification flow by sudosahil on 2026-10-11T13:10:00
