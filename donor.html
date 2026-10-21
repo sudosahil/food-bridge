@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surplus Food Bridge - Donor Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="donor">
+
+    <!-- ============ NAVBAR ============ -->
+    <!-- welcomeText, navExtraLink and logoutBtn are plain empty placeholders
+         here; js/common.js's setupNavbar() fills them in once we know who
+         is logged in (see donor.js -> initDonorPage). -->
+    <nav class="navbar navbar-dark navbar-custom">
+        <div class="container d-flex justify-content-between">
+            <span class="navbar-brand">Surplus Food Bridge</span>
+            <div class="d-flex align-items-center">
+                <span id="navExtraLink" class="nav-extra-link"></span>
+                <span id="welcomeText" class="navbar-welcome"></span>
+                <button id="logoutBtn" class="btn btn-logout btn-sm">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+
+        <!-- ============ PAGE HEADER ============ -->
+        <div class="dashboard-header">
+            <h2>Donor Dashboard</h2>
+            <p>Post surplus food and keep track of what your organization has donated.</p>
+        </div>
+
+        <!-- Jump links to the sections below (pure CSS anchor scrolling, no JS) -->
+        <nav class="quick-nav">
+            <a href="#postSection">Post Food</a>
+            <a href="#activeSection">Active Donations</a>
+            <a href="#historySection">Donation History</a>
+        </nav>
+
+        <!-- ============ STATS BAR ============ -->
+        <!-- Values are text placeholders ("0"); donor.js's renderDonorDashboard()
+             fills these in from computeDonorStats() in common.js. -->
+        <div class="row stats-bar g-3">
+            <div class="col-6 col-md-3">
+                <div class="stat-tile">
+                    <div class="stat-value" id="statTotalPosted">0</div>
+                    <div class="stat-label">Total Posted</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-tile">
+                    <div class="stat-value" id="statActive">0</div>
+                    <div class="stat-label">Active Listings</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-tile">
+                    <div class="stat-value" id="statRescued">0</div>
+                    <div class="stat-label">Units Rescued</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-tile">
+                    <div class="stat-value" id="statNgoServed">0</div>
+                    <div class="stat-label">NGOs Served</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ POST FOOD FORM ============ -->
+        <!-- Submitting this is handled by donor.js -> handlePostFood(),
+             which validates the fields and sends them (plus the optional
+             photo) to the server as multipart form data. -->
+        <div id="postSection" class="post-form-card">
+            <h5>Post a New Food Listing</h5>
+            <form id="foodForm">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label" for="foodName">Food Item</label>
+                        <input type="text" id="foodName" class="form-control" placeholder="e.g. Assorted Sandwiches" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="foodQuantity">Total Quantity</label>
+                        <input type="number" id="foodQuantity" class="form-control" placeholder="e.g. 20" min="0.1" step="any" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" for="foodUnit">Unit</label>
+                        <select id="foodUnit" class="form-select" required></select>
+                    </div>
+                </div>
+                <div class="row g-3 mt-1">
+                    <div class="col-md-4">
+                        <label class="form-label" for="foodZone">Pickup Zone</label>
+                        <select id="foodZone" class="form-select" required></select>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="form-label" for="foodAddressDetail">Pickup Instructions</label>
+                        <input type="text" id="foodAddressDetail" class="form-control" placeholder="e.g. Rear entrance, ask for the kitchen manager" required>
+                    </div>
+                </div>
+                <div class="row g-3 mt-1">
+                    <div class="col-md-6">
+                        <label class="form-label" for="foodPreparedAt">Prepared At</label>
+                        <input type="datetime-local" id="foodPreparedAt" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="foodBestBefore">Pickup By (Best Before)</label>
+                        <input type="datetime-local" id="foodBestBefore" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row g-3 mt-1 align-items-center">
+                    <div class="col-md-8">
+                        <label class="form-label" for="foodPhoto">Photo (optional)</label>
+                        <input type="file" id="foodPhoto" class="form-control" accept="image/jpeg,image/png,image/webp">
+                        <p class="form-hint">JPEG, PNG or WebP, up to 3 MB. A clear photo helps NGOs decide faster.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <img id="foodPhotoPreview" class="photo-preview d-none" alt="Selected photo preview">
+                    </div>
+                </div>
+                <p id="foodFormError" class="text-danger fw-semibold small d-none mt-3 mb-0"></p>
+                <button type="submit" class="btn btn-primary-brown mt-3">Post Item</button>
+            </form>
+        </div>
+
+        <!-- ============ ACTIVE DONATIONS GRID ============ -->
+        <!-- Empty div; donor.js -> renderDonorDashboard() builds one
+             Bootstrap card per listing here via buildDonorActiveCard(). -->
+        <div id="activeSection">
+            <h4 class="section-title">Active Donations</h4>
+            <div class="row mb-5" id="donorActiveGrid"></div>
+        </div>
+
+        <!-- ============ DONATION HISTORY GRID ============ -->
+        <!-- Same idea, but for fully-claimed listings, via buildDonorHistoryCard(). -->
+        <div id="historySection">
+            <h4 class="section-title">Donation History</h4>
+            <div class="row" id="donorHistoryGrid"></div>
+        </div>
+
+    </div>
+
+    <!-- ============ LISTING DETAIL MODAL ============ -->
+    <!-- Empty shell (title + body). common.js -> openListingDetailModal()
+         fills it in with a listing's full details when a card is clicked. -->
+    <div class="modal fade" id="listingDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Listing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ SCRIPTS (order matters) ============ -->
+    <!-- 1) Bootstrap JS: powers the modal, dropdowns, etc.
+         2) common.js: shared API client + helpers, must load before donor.js.
+         3) donor.js: page-specific logic, only runs because data-page="donor" above. -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/donor.js"></script>
+</body>
+</html>

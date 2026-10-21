@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surplus Food Bridge - Listing</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<!-- Opened as listing.html?id=<listing id>. Everyone can view; the donor who
+     owns the listing and admins also get an Edit button (see listing.js). -->
+<body data-page="listing">
+
+    <nav class="navbar navbar-dark navbar-custom">
+        <div class="container d-flex justify-content-between">
+            <span class="navbar-brand">Surplus Food Bridge</span>
+            <div class="d-flex align-items-center">
+                <span id="navExtraLink" class="nav-extra-link"></span>
+                <span id="welcomeText" class="navbar-welcome"></span>
+                <button id="logoutBtn" class="btn btn-logout btn-sm">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+
+        <div id="notFoundMessage" class="pending-gate d-none">
+            <h3>Listing not found</h3>
+            <p>This listing was removed or the link is wrong.</p>
+        </div>
+
+        <div id="listingContent" class="d-none">
+
+            <div class="dashboard-header d-flex flex-wrap justify-content-between align-items-end gap-3">
+                <div>
+                    <h2 id="listingTitle"></h2>
+                    <p id="listingSubtitle"></p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="button" id="editToggleBtn" class="btn btn-primary-brown d-none">Edit listing</button>
+                </div>
+            </div>
+
+            <!-- ============ EDIT FORM (hidden until "Edit listing") ============ -->
+            <div id="editCard" class="post-form-card d-none">
+                <h5>Edit listing</h5>
+                <form id="editForm">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label" for="editFoodName">Food item</label>
+                            <input type="text" id="editFoodName" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="editQuantity">Total quantity</label>
+                            <input type="number" id="editQuantity" class="form-control" min="0.1" step="any" required>
+                            <p class="form-hint" id="editQuantityHint"></p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="editUnit">Unit</label>
+                            <select id="editUnit" class="form-select" required></select>
+                            <p class="form-hint" id="editUnitHint"></p>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-4">
+                            <label class="form-label" for="editZone">Pickup zone</label>
+                            <select id="editZone" class="form-select" required></select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label" for="editAddressDetail">Pickup instructions</label>
+                            <input type="text" id="editAddressDetail" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-6">
+                            <label class="form-label" for="editPreparedAt">Prepared at</label>
+                            <input type="datetime-local" id="editPreparedAt" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="editBestBefore">Pickup by (best before)</label>
+                            <input type="datetime-local" id="editBestBefore" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-1 align-items-center">
+                        <div class="col-md-8">
+                            <label class="form-label" for="editPhoto">Replace photo (optional)</label>
+                            <input type="file" id="editPhoto" class="form-control" accept="image/jpeg,image/png,image/webp">
+                            <div class="form-check mt-2" id="removePhotoRow">
+                                <input class="form-check-input" type="checkbox" id="editRemovePhoto">
+                                <label class="form-check-label" for="editRemovePhoto">Remove the current photo</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <img id="editPhotoPreview" class="photo-preview d-none" alt="New photo preview">
+                        </div>
+                    </div>
+                    <p id="editError" class="text-danger fw-semibold small d-none mt-3 mb-0"></p>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary-brown">Save changes</button>
+                        <button type="button" id="editCancelBtn" class="btn btn-outline-brown">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ============ DETAILS ============ -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-5">
+                    <div id="listingMedia"></div>
+                    <div id="listingGauge"></div>
+                    <p class="countdown-text" id="listingCountdown"></p>
+                </div>
+                <div class="col-lg-7">
+                    <dl class="detail-grid" id="listingDetails"></dl>
+                    <div id="listingClaimBox"></div>
+                </div>
+            </div>
+
+            <h4 class="section-title">Claims</h4>
+            <div class="table-responsive mb-5">
+                <table class="table admin-table align-middle">
+                    <thead><tr><th>NGO</th><th>Quantity</th><th>Claimed at</th></tr></thead>
+                    <tbody id="claimsBody"></tbody>
+                </table>
+            </div>
+
+            <h4 class="section-title">Activity</h4>
+            <div class="table-responsive">
+                <table class="table admin-table align-middle">
+                    <thead><tr><th>Time</th><th>Type</th><th>What happened</th></tr></thead>
+                    <tbody id="activityBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/listing.js"></script>
+</body>
+</html>

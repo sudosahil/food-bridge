@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surplus Food Bridge - Login</title>
+
+    <!-- Bootstrap gives us the grid/form/button styling for free;
+         style.css on top of it only overrides colors/spacing. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<!-- data-page tells the scripts which logic block to run on this page -->
+<body data-page="login">
+
+    <div class="auth-shell">
+
+        <!-- ============ BRAND PANEL ============ -->
+        <aside class="auth-aside">
+            <span class="auth-brand">Surplus Food Bridge</span>
+            <div>
+                <h1>Food left over tonight can feed someone tonight.</h1>
+                <p>Bakeries, cafes and kitchens post what they could not sell. NGOs nearby claim it before the pickup window closes.</p>
+            </div>
+            <!-- Teaches the colour code used on every listing's shelf-life bar -->
+            <ul class="gauge-legend">
+                <li><div class="legend-bar"><span style="width:90%;background:#1e8e5a"></span></div>Fresh: more than half the time is left</li>
+                <li><div class="legend-bar"><span style="width:40%;background:#f5a524"></span></div>Use soon: less than half is left</li>
+                <li><div class="legend-bar"><span style="width:8%;background:#b4372b"></span></div>Expired: pickup window closed</li>
+            </ul>
+        </aside>
+
+        <main class="auth-main">
+
+        <!-- ============ LOGIN VIEW ============ -->
+        <div id="loginView">
+            <div>
+                <div class="auth-card">
+                    <h2 class="auth-title">Log in</h2>
+
+                    <div class="demo-accounts">
+                        <strong>Demo accounts</strong><br>
+                        Donor: <code>donor</code> / <code>1234</code> (Colaba Bakery)<br>
+                        Donor: <code>greenplate</code> / <code>1234</code> (Green Plate Cafe)<br>
+                        Donor: <code>campuskitchen</code> / <code>1234</code> (Campus Kitchen Co-op)<br>
+                        NGO: <code>ngo</code> / <code>1234</code> (City Shelter)<br>
+                        NGO: <code>foodrescue</code> / <code>1234</code> (Food Rescue Network)<br>
+                        NGO: <code>hopekitchen</code> / <code>1234</code> (Hope Community Kitchen)
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label" for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" class="form-control" placeholder="Enter your username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <p id="loginError" class="text-danger fw-semibold small d-none">Invalid username or password.</p>
+                        <button type="submit" class="btn btn-primary-brown w-100 mt-2">Log in</button>
+                        <p class="auth-switch">Don't have an account? <a href="#" data-auth-view="register">Register here</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ REGISTER VIEW ============ -->
+        <div id="registerView" class="d-none">
+            <div>
+                <div class="auth-card">
+                    <h2 class="auth-title">Create an account</h2>
+
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label class="form-label" for="regRole">I am registering as a</label>
+                            <select id="regRole" class="form-select" required>
+                                <option value="" disabled selected>Select your role...</option>
+                                <option value="donor">Food Donor (Restaurant / Store)</option>
+                                <option value="ngo">NGO (Shelter / Community Group)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="regName">Organization Name</label>
+                            <input type="text" id="regName" class="form-control" placeholder="e.g. Bandra Bakery or City Shelter" required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="regUsername">Username</label>
+                                <input type="text" id="regUsername" class="form-control" placeholder="Choose a username" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="regPassword">Password</label>
+                                <input type="password" id="regPassword" class="form-control" placeholder="Create a password" required minlength="6">
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="regZone">Nearest Zone</label>
+                                <select id="regZone" class="form-select" required>
+                                    <option value="" disabled selected>Select a zone...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="regPhone">Contact Phone</label>
+                                <input type="tel" id="regPhone" class="form-control" placeholder="10-digit mobile number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="Enter exactly 10 digits." required>
+                                <p class="form-hint">Enter a 10-digit number, no country code or spaces.</p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="regAddress">Street Address / Landmark</label>
+                            <input type="text" id="regAddress" class="form-control" placeholder="e.g. Linking Road, near Bandra Station" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" id="regRegistrationLabel" for="regRegistrationNumber">Registration or licence number</label>
+                            <input type="text" id="regRegistrationNumber" class="form-control" placeholder="Choose your role first" minlength="5" maxlength="30" required>
+                            <p class="form-hint">An admin checks this before approving your account. You can log in right away, but you can post or claim food only once you are approved.</p>
+                        </div>
+
+                        <!-- DONOR ONLY FIELD -->
+                        <div id="donorFields" class="role-extra-fields d-none">
+                            <div class="mb-3">
+                                <label class="form-label" for="regDescription">Short Description</label>
+                                <textarea id="regDescription" class="form-control" rows="2" placeholder="What kind of food do you usually donate?"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-dark w-100 mt-2">Create account</button>
+                        <p class="auth-switch">Already have an account? <a href="#" data-auth-view="login">Login here</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <p class="site-footer">Surplus Food Bridge, a Web Programming Lab project</p>
+        </main>
+    </div>
+
+    <!-- common.js must load first: it defines the API client, ZONES list,
+         and utility functions that login.js relies on. -->
+    <script src="js/common.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "surplus-food-bridge",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Surplus Food Bridge - donors post surplus food, NGOs claim it, admins moderate.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "seed": "node server/src/seed/seed.js",
+    "test": "npm run test:unit && npm run test:api",
+    "test:unit": "node tests/test-harness.js",
+    "test:api": "node --test tests/api.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.11.2",
+    "multer": "^2.4.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}
